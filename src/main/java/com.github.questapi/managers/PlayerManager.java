@@ -15,6 +15,9 @@ public class PlayerManager {
         return players;
     }
 
+    /*
+     * Called when a player joins the server
+     */
     public void register(Player player){
         if(!isRegistered(player))
             players.add(new PlayerInfo(player));
@@ -37,6 +40,9 @@ public class PlayerManager {
         return give;
     }
 
+    /*
+     * To be called when a player leaves the server
+     */
     public void unregister(Player targetEntity) {
         Optional<PlayerInfo> temp = findPlayerInfo(targetEntity);
         if(temp.isPresent()){

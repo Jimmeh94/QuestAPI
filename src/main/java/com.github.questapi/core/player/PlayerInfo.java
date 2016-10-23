@@ -12,6 +12,10 @@ import java.util.UUID;
 
 public class PlayerInfo {
 
+    /*
+     * Basic player info file
+     */
+
     private UUID uuid;
     private List<Quest> quests = new ArrayList<>();
 
@@ -21,7 +25,7 @@ public class PlayerInfo {
 
     public PlayerInfo(Player player){
         uuid = player.getUniqueId();
-        //populate quests
+        //TODO populate quests
     }
 
     public List<Quest> getQuests(){return quests;}

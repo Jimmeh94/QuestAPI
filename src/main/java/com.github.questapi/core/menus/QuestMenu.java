@@ -15,6 +15,10 @@ import java.util.List;
 
 public class QuestMenu{
 
+    /*
+     * To be the quest menu that players open to view their currently owned quests
+     */
+
     private List<Inventory> menus = new ArrayList<>();
     private PlayerInfo owner;
 

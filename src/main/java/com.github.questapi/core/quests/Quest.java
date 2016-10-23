@@ -14,10 +14,6 @@ public class Quest {
 
     /*
      * General quest container.
-     * Has info: title, description, reward, active status
-     * Parts: 1) opening dialogue, 2) quest checkpoints, 3) finishing dialogue
-     * Quest timer: 1) checkpoint finished? Yes - load next checkpoint, if final, finish quest, 2) update location tracker
-     * Quest Log/Journal: shows all owned (incomplete) quests, active quest first, click to make quest active
      */
 
     private Text title, description;
@@ -26,12 +22,11 @@ public class Quest {
     private boolean active = false;
     private List<Checkpoint> checkpoints;
 
-    /*
-     * Possibly have all quests stored in a database and on server start up, load those quests
-     * as generic, then once a player logs in, give them a "personalized" instance of the quests
-     * they need using the copy constructor?
-     */
 
+    /*
+     * All quests are loaded on server start up from a database and stored as "templates"
+     * That's what this constructor is for
+     */
     public Quest(String title, String description, int lvl, int id, List<Checkpoint> checkpoints){
         this.title = Text.of(title);
         this.description = Text.of(description);

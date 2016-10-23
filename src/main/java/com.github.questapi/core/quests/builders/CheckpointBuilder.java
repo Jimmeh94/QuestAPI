@@ -13,7 +13,9 @@ public class CheckpointBuilder {
     /*
      * used in conjunction with the questBuilder. Accessible there. add checkpoint
      * params then use .build() to build a check point and continue to make more. Once you're finished,
-     * use questBuilder.checkpoints to load checkpoints from here into quest builder
+     * use questBuilder.checkpoints to load checkpoints from here into quest builder.
+     * This SHOULD NOT be used on its own. It is accessible through the quest builder.
+     * finish() should not be manually called - only to be called by the questbuilder
      */
 
     private Optional<Location> targetLocation = Optional.empty();

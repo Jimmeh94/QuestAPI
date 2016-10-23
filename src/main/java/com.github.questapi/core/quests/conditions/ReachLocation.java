@@ -6,6 +6,10 @@ import org.spongepowered.api.world.Location;
 
 public class ReachLocation extends Condition {
 
+    /*
+     * Simply a condition to where a player must reach a location
+     */
+
     private Location targetLocation;
     private double completionRadius = 1.5;
 
