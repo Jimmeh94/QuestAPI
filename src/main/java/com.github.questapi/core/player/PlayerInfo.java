@@ -18,6 +18,7 @@ public class PlayerInfo {
 
     private UUID uuid;
     private List<Quest> quests = new ArrayList<>();
+    private int level = 0;
 
     public UUID getUuid() {
         return uuid;
@@ -27,6 +28,12 @@ public class PlayerInfo {
         uuid = player.getUniqueId();
         //TODO populate quests
     }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level){this.level = level;}
 
     public List<Quest> getQuests(){return quests;}
 
