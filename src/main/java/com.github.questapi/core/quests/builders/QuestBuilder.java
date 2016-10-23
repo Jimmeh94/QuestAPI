@@ -2,6 +2,7 @@ package com.github.questapi.core.quests.builders;
 
 import com.github.questapi.core.quests.Checkpoint;
 import com.github.questapi.core.quests.Quest;
+import org.spongepowered.api.item.ItemType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,12 @@ public class QuestBuilder {
     private String title, description;
     private List<Checkpoint> checkpoints;
     private int lvl = 1, id = 0;
+    private ItemType itemType;
+
+    public QuestBuilder itemType(ItemType itemType){
+        this.itemType = itemType;
+        return this;
+    }
 
     public QuestBuilder name(String name){
         title = name;
@@ -41,7 +48,7 @@ public class QuestBuilder {
     }
 
     public Quest build(){
-        Quest quest = new Quest(title, description, lvl, id, new ArrayList<>(checkpoints));
+        Quest quest = new Quest(title, description, lvl, id, new ArrayList<>(checkpoints), itemType);
         id++;
         reset();
         return quest;

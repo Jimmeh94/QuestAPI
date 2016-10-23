@@ -1,6 +1,7 @@
 package com.github.questapi.core.player;
 
 import com.github.questapi.QuestAPI;
+import com.github.questapi.core.menus.QuestMenu;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import com.github.questapi.core.quests.Quest;
@@ -19,6 +20,7 @@ public class PlayerInfo {
     private UUID uuid;
     private List<Quest> quests = new ArrayList<>();
     private int level = 0;
+    private QuestMenu questMenu;
 
     public UUID getUuid() {
         return uuid;
@@ -27,6 +29,16 @@ public class PlayerInfo {
     public PlayerInfo(Player player){
         uuid = player.getUniqueId();
         //TODO populate quests
+        //questMenu = new QuestMenu(this);
+    }
+
+    /*
+     * For testing purposes
+     */
+    public void generateQuestMenu(){questMenu = new QuestMenu(this);}
+
+    public QuestMenu getQuestMenu() {
+        return questMenu;
     }
 
     public int getLevel() {

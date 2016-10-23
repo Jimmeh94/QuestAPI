@@ -2,6 +2,9 @@ package com.github.questapi.core.quests;
 
 import com.github.questapi.QuestAPI;
 import com.github.questapi.utilities.directional.PlayerDirection;
+import org.spongepowered.api.item.ItemType;
+import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import com.github.questapi.core.player.PlayerInfo;
 import org.spongepowered.api.text.format.TextColors;
@@ -21,18 +24,20 @@ public class Quest {
     private int recommendedLvl = 0, id;
     private boolean active = false;
     private List<Checkpoint> checkpoints;
+    private ItemStack itemRepresentation;
 
 
     /*
      * All quests are loaded on server start up from a database and stored as "templates"
      * That's what this constructor is for
      */
-    public Quest(String title, String description, int lvl, int id, List<Checkpoint> checkpoints){
+    public Quest(String title, String description, int lvl, int id, List<Checkpoint> checkpoints, ItemType itemType){
         this.title = Text.of(title);
         this.description = Text.of(description);
         recommendedLvl = lvl;
         this.id = id;
         this.checkpoints = checkpoints;
+        this.itemRepresentation = ItemStack.builder().itemType(itemType).build();
     }
 
     /*
@@ -48,6 +53,7 @@ public class Quest {
         owner = Optional.of(playerInfo);
         id = quest.getID();
         checkpoints = new ArrayList<>(quest.getCheckpoints());
+        this.itemRepresentation = quest.getItemRepresentation().copy();
         for(Checkpoint c: checkpoints){
             c.setPlayer(owner.get().getPlayer());
         }
@@ -114,5 +120,9 @@ public class Quest {
 
     public List<Checkpoint> getCheckpoints() {
         return checkpoints;
+    }
+
+    public ItemStack getItemRepresentation() {
+        return itemRepresentation;
     }
 }

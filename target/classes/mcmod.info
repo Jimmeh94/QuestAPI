@@ -1,0 +1,10 @@
+[
+    {
+        "modid": "questapi",
+        "name": "QuestAPI",
+        "version": "1.0.0",
+        "requiredMods": [
+            "spongeapi@5.0.0"
+        ]
+    }
+]
