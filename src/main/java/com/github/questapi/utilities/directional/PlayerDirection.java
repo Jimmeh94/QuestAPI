@@ -3,6 +3,8 @@ package com.github.questapi.utilities.directional;
 
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.Location;
 import com.github.questapi.utilities.text.AltCodes;
 
@@ -80,7 +82,7 @@ public class PlayerDirection {
     /*
      * Returns arrow pointing towards the desired location. Used for quest-target-location tracker
      */
-    public static String getDesiredDirection(Player player, Location target) {
+    public static Text getDesiredDirection(Player player, Location target) {
         //n = -z, s = z, w = -x, e = x
         Location at = player.getLocation();
         String current = getCardinalDirection(player);
@@ -127,6 +129,15 @@ public class PlayerDirection {
                 break;
             case 3: result = AltCodes.ARROW_LEFT.getSign();
         }
-        return result;
+
+        Text text;
+        if(player.getLocation().getBlockY() < target.getBlockY()){
+           text = Text.builder().append(Text.of(TextColors.GREEN, result)).build();
+        } else if(player.getLocation().getBlockY() > target.getBlockY()){
+            text = Text.builder().append(Text.of(TextColors.RED, result)).build();
+        } else {
+            text = Text.builder().append(Text.of(TextColors.GRAY, result)).build();
+        }
+        return text;
     }
 }

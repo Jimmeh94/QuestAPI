@@ -84,8 +84,8 @@ public class Quest {
             //get distance from player to target, get arrow direction, send message
             if(checkpoints.get(0).getTargetLocation().isPresent()) {
                 int distance = (int) checkpoints.get(0).getTargetLocation().get().getPosition().distance(owner.get().getPlayer().getLocation().getPosition());
-                QuestAPI.getInstance().getMessager().sendActionBarMessage(owner.get().getPlayer(), String.valueOf(distance) + " " +
-                        PlayerDirection.getDesiredDirection(owner.get().getPlayer(), checkpoints.get(0).getTargetLocation().get()), TextColors.GOLD);
+                QuestAPI.getInstance().getMessager().sendActionBarMessage(owner.get().getPlayer(), Text.builder().append(Text.of(TextColors.GOLD, String.valueOf(distance) + " ")).append(
+                        PlayerDirection.getDesiredDirection(owner.get().getPlayer(), checkpoints.get(0).getTargetLocation().get())).build());
             }
         }
         return false;
