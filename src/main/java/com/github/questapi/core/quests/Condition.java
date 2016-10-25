@@ -20,6 +20,7 @@ public abstract class Condition {
     private boolean resetCheckpointProgress;
     private Check checkWhen;
     private Player player;
+    private Long lastWarningMessage;
 
     public abstract boolean isValid();
 
@@ -46,5 +47,16 @@ public abstract class Condition {
 
     public Player getPlayer() {
         return player;
+    }
+
+    protected void setLastWarningMessage(){lastWarningMessage = System.currentTimeMillis();}
+
+    /*
+     * Will only send warning message every 10 seconds
+     */
+    protected boolean shouldSendWarningMessage(){
+        if(lastWarningMessage == null)
+            return true;
+        return ((System.currentTimeMillis() - lastWarningMessage)/1000 >= 10);
     }
 }

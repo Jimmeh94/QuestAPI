@@ -1,8 +1,11 @@
 package com.github.questapi.core.quests.conditions;
 
+import com.github.questapi.QuestAPI;
 import com.github.questapi.core.quests.Condition;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.Location;
 
 import java.util.Optional;
@@ -16,20 +19,12 @@ public class BoundRadius extends Condition {
 
     private double radius;
     private Location center;
-    private Optional<Location> manualTrackedLocation;
+    private Optional<Location> manualTrackedLocation = Optional.empty();
 
-    public BoundRadius(boolean reset, double radius, Location center, Entity entity){
+    public BoundRadius(boolean reset, double radius, Location center){
         super(reset, Check.ON_TIMER_TICK);
         this.radius = radius;
         this.center = center;
-    }
-
-    public BoundRadius(boolean reset, double radius, Location center, Location location){
-        super(reset, Check.ON_TIMER_TICK);
-        this.radius = radius;
-        this.center = center;
-        if(location != null)
-            manualTrackedLocation = Optional.of(location);
     }
 
     /*
@@ -54,6 +49,9 @@ public class BoundRadius extends Condition {
 
     @Override
     public void displayWarningMessage() {
-        //TODO fill this out
+        if(shouldSendWarningMessage()){
+            setLastWarningMessage();
+            QuestAPI.getInstance().getMessager().sendMessage(getPlayer(), Text.of(TextColors.RED, "You're outside of the quest region! Go back to continue the quest!"));
+        }
     }
 }
