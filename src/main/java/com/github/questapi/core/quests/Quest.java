@@ -26,19 +26,21 @@ public class Quest {
     private boolean active = false;
     private List<Checkpoint> checkpoints;
     private ItemStack itemRepresentation;
+    private Reward reward;
 
 
     /*
      * All quests are loaded on server start up from a database and stored as "templates"
      * That's what this constructor is for
      */
-    public Quest(String title, String description, int lvl, String id, List<Checkpoint> checkpoints, ItemType itemType){
+    public Quest(String title, String description, int lvl, String id, List<Checkpoint> checkpoints, ItemType itemType, Reward reward){
         this.title = Text.of(title);
         this.description = Text.of(description);
         recommendedLvl = lvl;
         this.id = id;
         this.checkpoints = checkpoints;
         this.itemRepresentation = ItemStack.builder().itemType(itemType).build();
+        this.reward = reward;
     }
 
     /*
@@ -58,6 +60,7 @@ public class Quest {
         for(Checkpoint c: checkpoints){
             c.setPlayer(owner.get().getPlayer());
         }
+        this.reward = quest.getReward();
     }
 
     /*
@@ -71,7 +74,8 @@ public class Quest {
     public boolean tick(){
         if(checkpoints.size() > 0){
             if(checkpoints.get(0).isComplete(Condition.Check.ON_TIMER_TICK)){
-                checkpoints.get(0).printCompletionMsg();
+                if(checkpoints.size() > 1)
+                    checkpoints.get(0).printCompletionMsg();
                 checkpoints.remove(0);
 
                 if(checkpoints.size() > 0){
@@ -92,8 +96,14 @@ public class Quest {
         return false;
     }
 
+    public Reward getReward() {
+        return reward;
+    }
+
     private void completeQuest(){
         QuestAPI.getInstance().getMessager().sendTitleAndSubTitle(owner.get().getPlayer(), Text.of(TextColors.GOLD, getTitle()), Text.of(TextColors.GREEN, "Completed"));
+        if(reward != null)
+            reward.giveAward(owner.get().getPlayer());
     }
 
     public String getID(){return id;}
