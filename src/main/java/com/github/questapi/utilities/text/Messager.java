@@ -25,7 +25,7 @@ public class Messager {
     /*
      * Use if wanting multiple styles or colors
      */
-    public void setPrefix(Text text){prefix.of(text);}
+    public void setPrefix(Text text){prefix = Optional.of(text);}
 
     /*
      * Resets the prefix. Doing this will make sure no prefix is present in sent messages
@@ -36,13 +36,7 @@ public class Messager {
      * Sends a basic message. Applies prefix if present
      */
     public void sendMessage(Player player, String string, TextColor colors){
-        Text text;
-        if(prefix.isPresent()){
-            text = Text.builder(prefix.get(), prefix.get().toPlain()).append(Text.of(colors, string)).build();
-        } else {
-            text = Text.of(colors, string);
-        }
-        sendMessage(player, text);
+        sendMessage(player, Text.of(colors, string));
     }
 
     /*
@@ -50,17 +44,18 @@ public class Messager {
      */
     public void sendMessage(Player player, Text text){
         if(prefix.isPresent()){
-            Text use = Text.builder(prefix.get(), prefix.get().toPlain()).append(Text.builder(text, text.toPlain()).build()).build();
+            Text use = Text.builder().append(prefix.get()).append(text).build();
             player.sendMessage(use);
         } else {
             player.sendMessage(text);
         }
+        player.sendMessage(Text.of(" "));
     }
 
     public void sendActionBarMessage(Player player, String string, TextColor colors){
         Text text;
         if(prefix.isPresent()){
-            text = Text.builder(prefix.get(), prefix.get().toPlain()).append(Text.of(colors, string)).build();
+            text = Text.builder().append(prefix.get()).append(Text.of(colors, string)).build();
         } else {
             text = Text.of(colors, string);
         }
@@ -81,7 +76,7 @@ public class Messager {
     public void broadcastMessage(String string, TextColor colors){
         Text text;
         if(prefix.isPresent()){
-            text = Text.builder(prefix.get(), prefix.get().toPlain()).append(Text.of(colors, string)).build();
+            text = Text.builder().append(prefix.get()).append(Text.of(colors, string)).build();
         } else {
             text = Text.of(colors, string);
         }
@@ -93,14 +88,11 @@ public class Messager {
      */
     public void broadcastMessage(Text text){
         if(prefix.isPresent()){
-            Text use = Text.builder(prefix.get(), prefix.get().toPlain()).append(Text.builder(text, text.toPlain()).build()).build();
-            for(Player p: Sponge.getServer().getOnlinePlayers()){
-                p.sendMessage(use);
-            }
-        } else {
-            for(Player p: Sponge.getServer().getOnlinePlayers()){
-                p.sendMessage(text);
-            }
+            text = Text.builder().append(prefix.get()).append(text).build();
+        }
+        for(Player p: Sponge.getServer().getOnlinePlayers()){
+            p.sendMessage(text);
+            p.sendMessage(Text.of(" "));
         }
 
     }

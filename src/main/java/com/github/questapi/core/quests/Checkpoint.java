@@ -41,7 +41,7 @@ public class Checkpoint {
      */
     public void start(){
         if(getDescription().isPresent())
-            QuestAPI.getInstance().getMessager().sendMessage(player, "Quest updated: " + getDescription().get(), TextColors.YELLOW);
+            QuestAPI.getInstance().getMessager().sendMessage(player, getDescription().get(), TextColors.GRAY);
         for(Condition condition: conditions){
             condition.setStartingInfo();
         }

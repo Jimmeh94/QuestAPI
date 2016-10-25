@@ -16,6 +16,8 @@ import com.github.questapi.managers.PlayerManager;
 import com.github.questapi.managers.QuestManager;
 import com.github.questapi.runnables.CoreTimer;
 import com.github.questapi.utilities.text.Messager;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
 
 @Plugin(id = "questapi", name = "QuestAPI", version = "1.0.0")
 public class QuestAPI {
@@ -37,6 +39,9 @@ public class QuestAPI {
         registerListeners();
         registerCommands();
         registerRunnables();
+
+        getMessager().setPrefix(Text.builder().append(Text.of(TextColors.GRAY, "[")).append(Text.of(TextColors.GOLD, "Quest"))
+                                .append(Text.of(TextColors.GRAY, "] ")).build());
     }
 
     private void registerRunnables() {
