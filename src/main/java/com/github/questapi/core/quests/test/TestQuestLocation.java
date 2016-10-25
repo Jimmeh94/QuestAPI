@@ -6,6 +6,7 @@ import com.github.questapi.core.quests.builders.CheckpointBuilder;
 import com.github.questapi.core.quests.builders.QuestBuilder;
 import com.github.questapi.core.quests.conditions.BoundRadius;
 import com.github.questapi.core.quests.conditions.ReachLocation;
+import com.github.questapi.core.quests.conditions.TimeLimit;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
@@ -25,10 +26,11 @@ public class TestQuestLocation {
         checkpointBuilder.description("Go to a location")
                 .targetLocation(use)
                 .condition(new ReachLocation(false, use, 1.5))
+                .condition(new TimeLimit(true, 15))
                 .buildCheckpoint();
-        checkpointBuilder.description("Stay within location and reach target location")
+        checkpointBuilder.description("Stay within quest region and reach target location")
                 .targetLocation(use2)
-                .condition(new BoundRadius(false, 10.0, use))
+                .condition(new BoundRadius(true, 10.0, use))
                 .condition(new ReachLocation(false, use2, 1.5))
                 .buildCheckpoint();
 

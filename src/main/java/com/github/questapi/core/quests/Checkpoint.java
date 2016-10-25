@@ -21,8 +21,10 @@ public class Checkpoint {
      * tutorial area with a BoundRadius condition. If the player leaves the tutorial area, they would
      * be teleported back and the checkpoint would restart
      */
-    public void resetProgress(){
-        //TODO resets all conditions for this checkpoint
+    private void resetProgress(){
+        for(Condition condition: conditions){
+            condition.reset();
+        }
     }
 
     public Checkpoint(Location location, String description, Condition... conditions){
@@ -40,6 +42,9 @@ public class Checkpoint {
     public void start(){
         if(getDescription().isPresent())
             QuestAPI.getInstance().getMessager().sendMessage(player, "Quest updated: " + getDescription().get(), TextColors.YELLOW);
+        for(Condition condition: conditions){
+            condition.setStartingInfo();
+        }
     }
 
     /*
@@ -77,16 +82,17 @@ public class Checkpoint {
      * Makes sure all checkpoint conditions are validated before completing
      */
     private boolean conditionsMet(){
+        boolean valid = true;
         for(Condition condition: conditions){
             if(!condition.isValid()){
                 condition.displayWarningMessage();
                 if(condition.shouldResetProgress()){
                     resetProgress();
                 }
-                return false;
+                valid = false;
             }
         }
-        return true;
+        return valid;
     }
 
     public Optional<Location> getTargetLocation() {

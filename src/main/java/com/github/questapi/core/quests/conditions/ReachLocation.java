@@ -27,6 +27,16 @@ public class ReachLocation extends Condition {
     }
 
     @Override
+    public void setAdditionalStartInfo() {
+
+    }
+
+    @Override
+    public void reset() {
+
+    }
+
+    @Override
     public void displayWarningMessage() {
 
     }

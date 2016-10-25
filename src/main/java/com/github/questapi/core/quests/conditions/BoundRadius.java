@@ -48,6 +48,16 @@ public class BoundRadius extends Condition {
     }
 
     @Override
+    public void setAdditionalStartInfo() {
+
+    }
+
+    @Override
+    public void reset() {
+        getPlayer().setLocation(getStartLocation());
+    }
+
+    @Override
     public void displayWarningMessage() {
         if(shouldSendWarningMessage()){
             setLastWarningMessage();

@@ -1,9 +1,9 @@
 package com.github.questapi.core.quests;
 
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.world.Location;
 
 public abstract class Condition {
-
 
     /*
      * Conditions have to do with the environment in which the quest checkpoint must be completed in
@@ -21,8 +21,20 @@ public abstract class Condition {
     private Check checkWhen;
     private Player player;
     private Long lastWarningMessage;
+    private Location startLocation;
 
     public abstract boolean isValid();
+
+    /*
+     * In case there's any additional info the condition will need once it becomes active
+     */
+    public abstract void setAdditionalStartInfo();
+
+    /*
+     * Reset the current condition
+     * If boolean is true, can/should teleport player back to where they started the checkpoint at
+     */
+    public abstract void reset();
 
     /*
      * Warning message should be sent to the player if they are being reset
@@ -38,6 +50,12 @@ public abstract class Condition {
         checkWhen = check;
 
     }
+
+    public void setStartingInfo() {
+        startLocation = getPlayer().getLocation().copy();
+    }
+
+    protected Location getStartLocation(){return startLocation;}
 
     public Check getCheck() {
         return checkWhen;
