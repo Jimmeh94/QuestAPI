@@ -12,8 +12,8 @@ public class PlayerConnection {
     public void onJoin(ClientConnectionEvent.Join event){
         event.setMessageCancelled(true);
         QuestAPI.getInstance().getPlayerManager().register(event.getTargetEntity());
-        QuestAPI.getInstance().getQuestManager().giveQuest(QuestAPI.getInstance().getPlayerManager().findPlayerInfo(event.getTargetEntity()).get(), 0);
-        QuestAPI.getInstance().getQuestManager().setActiveQuest(QuestAPI.getInstance().getPlayerManager().findPlayerInfo(event.getTargetEntity()).get(), 0);
+        QuestAPI.getInstance().getQuestManager().giveQuest(QuestAPI.getInstance().getPlayerManager().findPlayerInfo(event.getTargetEntity()).get(), "test");
+        QuestAPI.getInstance().getQuestManager().setActiveQuest(QuestAPI.getInstance().getPlayerManager().findPlayerInfo(event.getTargetEntity()).get(), "test");
         QuestAPI.getInstance().getPlayerManager().findPlayerInfo(event.getTargetEntity()).get().generateQuestMenu();
         event.getTargetEntity().openInventory(QuestAPI.getInstance().getPlayerManager().findPlayerInfo(event.getTargetEntity()).get().getQuestMenu().getPage(0),
                 Cause.builder().named(NamedCause.of("testing", this)).build());

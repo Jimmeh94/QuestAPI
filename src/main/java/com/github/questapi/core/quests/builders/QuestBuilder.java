@@ -19,7 +19,8 @@ public class QuestBuilder {
     private CheckpointBuilder checkpointBuilder = new CheckpointBuilder();
     private String title, description;
     private List<Checkpoint> checkpoints;
-    private int lvl = 1, id = 0;
+    private int lvl = 1;
+    private String id;
     private ItemType itemType;
 
     public QuestBuilder itemType(ItemType itemType){
@@ -47,9 +48,13 @@ public class QuestBuilder {
         return this;
     }
 
+    public QuestBuilder setID(String id){
+        this.id = id;
+        return this;
+    }
+
     public Quest build(){
         Quest quest = new Quest(title, description, lvl, id, new ArrayList<>(checkpoints), itemType);
-        id++;
         reset();
         return quest;
     }

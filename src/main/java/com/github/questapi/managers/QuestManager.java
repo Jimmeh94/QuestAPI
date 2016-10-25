@@ -23,7 +23,7 @@ public class QuestManager {
         quests.add(TestQuestLocation.createLocationTest());
     }
 
-    public void giveQuest(PlayerInfo playerInfo, int id){
+    public void giveQuest(PlayerInfo playerInfo, String id){
         Quest quest = null;
         for(Quest q: quests){
             if(q.getID() == id)
@@ -34,7 +34,7 @@ public class QuestManager {
         }
     }
 
-    public void setActiveQuest(PlayerInfo playerInfo, int id){
+    public void setActiveQuest(PlayerInfo playerInfo, String id){
         Quest quest = null;
         for(Quest q: playerInfo.getQuests()){
             if(q.getID() == id)
@@ -77,7 +77,7 @@ public class QuestManager {
         playerInfo.getQuests().remove(quest);
     }
 
-    public void removeQuest(PlayerInfo playerInfo, int id){
+    public void removeQuest(PlayerInfo playerInfo, String id){
         Quest remove = null;
         for(Quest quest: playerInfo.getQuests()){
             if(quest.getID() == id)

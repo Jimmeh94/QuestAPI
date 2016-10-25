@@ -21,7 +21,8 @@ public class Quest {
 
     private Text title, description;
     private Optional<PlayerInfo> owner = Optional.empty();
-    private int recommendedLvl = 0, id;
+    private int recommendedLvl = 0;
+    String id;
     private boolean active = false;
     private List<Checkpoint> checkpoints;
     private ItemStack itemRepresentation;
@@ -31,7 +32,7 @@ public class Quest {
      * All quests are loaded on server start up from a database and stored as "templates"
      * That's what this constructor is for
      */
-    public Quest(String title, String description, int lvl, int id, List<Checkpoint> checkpoints, ItemType itemType){
+    public Quest(String title, String description, int lvl, String id, List<Checkpoint> checkpoints, ItemType itemType){
         this.title = Text.of(title);
         this.description = Text.of(description);
         recommendedLvl = lvl;
@@ -95,7 +96,7 @@ public class Quest {
         QuestAPI.getInstance().getMessager().sendTitleAndSubTitle(owner.get().getPlayer(), Text.of(TextColors.GOLD, getTitle()), Text.of(TextColors.GREEN, "Completed"));
     }
 
-    public int getID(){return id;}
+    public String getID(){return id;}
 
     public Text getTitle() {
         return title;

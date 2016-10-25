@@ -42,7 +42,7 @@ public class QuestAPI {
     private void registerRunnables() {
         Task.Builder taskBuilder = Sponge.getScheduler().createTaskBuilder();
 
-        taskBuilder.execute(new CoreTimer()).intervalTicks(20L).submit(this);
+        taskBuilder.execute(new CoreTimer()).intervalTicks(10L).submit(this);
     }
 
     private void registerCommands() {
