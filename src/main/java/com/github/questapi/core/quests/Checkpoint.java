@@ -11,6 +11,10 @@ import java.util.Optional;
 
 public class Checkpoint {
 
+    /*
+     * Quests are made of checkpoints. Checkpoints contain conditions that must be met to be completed
+     */
+
     private Player player;
     private Optional<Location> targetLocation = Optional.empty();
     private Optional<String> description = Optional.empty();

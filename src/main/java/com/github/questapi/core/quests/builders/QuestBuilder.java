@@ -10,8 +10,6 @@ import java.util.List;
 
 public class QuestBuilder {
 
-    //TODO add reward area
-
     /*
      * simple way to hard code quests. Use the questBuilder.getCheckpointBuilder to build checkpoints.
      * Then use questBuilder.checkpoints() to lead checkpoints from there

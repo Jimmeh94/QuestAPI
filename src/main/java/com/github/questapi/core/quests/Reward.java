@@ -5,6 +5,10 @@ import org.spongepowered.api.text.Text;
 
 public interface Reward {
 
+    /*
+     * Quest rewards
+     */
+
     Text getDescription();
 
     void giveAward(Player player);

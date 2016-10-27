@@ -7,6 +7,10 @@ import org.spongepowered.api.text.format.TextColors;
 
 public class TimeLimit extends Condition {
 
+    /*
+     * Checkpoint must be completed within the time limit
+     */
+
     private Long whenStarted;
     private int seconds;
 
