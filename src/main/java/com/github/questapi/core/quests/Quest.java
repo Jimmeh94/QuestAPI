@@ -2,12 +2,14 @@ package com.github.questapi.core.quests;
 
 import com.github.questapi.QuestAPI;
 import com.github.questapi.utilities.directional.PlayerDirection;
+import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import com.github.questapi.core.player.PlayerInfo;
 import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.text.format.TextStyles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +36,13 @@ public class Quest {
      * That's what this constructor is for
      */
     public Quest(String title, String description, int lvl, String id, List<Checkpoint> checkpoints, ItemType itemType, Reward reward){
-        this.title = Text.of(title);
-        this.description = Text.of(description);
+        this.title = Text.of(TextColors.GOLD, title);
+        this.description = Text.of(TextColors.GRAY, description);
         recommendedLvl = lvl;
         this.id = id;
         this.checkpoints = checkpoints;
         this.itemRepresentation = ItemStack.builder().itemType(itemType).build();
+        itemRepresentation.offer(Keys.DISPLAY_NAME, getTitle());
         this.reward = reward;
     }
 
@@ -57,10 +60,22 @@ public class Quest {
         id = quest.getID();
         checkpoints = new ArrayList<>(quest.getCheckpoints());
         this.itemRepresentation = quest.getItemRepresentation().copy();
+        setLore(false);
         for(Checkpoint c: checkpoints){
             c.setPlayer(owner.get().getPlayer());
         }
         this.reward = quest.getReward();
+    }
+
+    public void setLore(boolean active){
+        List<Text> temp = new ArrayList<>();
+        temp.add(Text.of(description));
+        if(active){
+            temp.add(0, Text.of(" "));
+            temp.add(1, Text.of(TextColors.GREEN, TextStyles.BOLD, "Active"));
+            temp.add(2, Text.of(" "));
+        }
+        itemRepresentation.offer(Keys.ITEM_LORE, temp);
     }
 
     /*
@@ -124,9 +139,14 @@ public class Quest {
         return active;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
-        checkpoints.get(0).start();
+    public void toggleActive() {
+        if(active){
+            active = false;
+        } else {
+            active = true;
+            checkpoints.get(0).start();
+        }
+        setLore(true);
     }
 
     public List<Checkpoint> getCheckpoints() {

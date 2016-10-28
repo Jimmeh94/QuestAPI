@@ -41,7 +41,12 @@ public class QuestManager {
                 quest = q;
         }
         if(quest != null && !quest.isActive()){
-            quest.setActive(true);
+            Optional<Quest> temp = getActiveQuest(playerInfo);
+            if(temp.isPresent()){
+                temp.get().setLore(false);
+                temp.get().toggleActive();
+            }
+            quest.toggleActive();
         }
     }
 
@@ -49,7 +54,7 @@ public class QuestManager {
         if(!playerInfo.getQuests().contains(quest))
             playerInfo.getQuests().add(quest);
         if(quest != null && !quest.isActive()){
-            quest.setActive(true);
+            quest.toggleActive();
         }
     }
 

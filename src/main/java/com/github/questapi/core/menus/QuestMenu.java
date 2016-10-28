@@ -2,6 +2,7 @@ package com.github.questapi.core.menus;
 
 import com.github.questapi.QuestAPI;
 import com.github.questapi.core.player.PlayerInfo;
+import com.github.questapi.core.quests.Quest;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.InventoryArchetype;
@@ -41,9 +42,8 @@ public class QuestMenu{
 
         int counter = 0;
         for(int i = 0; i < pages; i++){
-            Inventory inv = Inventory.builder().
-                    property("title", InventoryTitle.of(Text.of("Quests: Page " + (i + 1)))) //TODO this isn't working
-                    .property("inventorydimension", new InventoryDimension(9, 6))
+            Inventory inv = Inventory.builder().of(InventoryArchetypes.DOUBLE_CHEST)
+                    .property(InventoryTitle.PROPERTY_NAME, InventoryTitle.of(Text.of("Quests: Page " + (i + 1))))
                     .build(QuestAPI.getInstance());
             for(int j = 0; j < 27 && counter < owner.getQuests().size(); j++, counter++){
                 inv.set(owner.getQuests().get(counter).getItemRepresentation());
@@ -54,5 +54,13 @@ public class QuestMenu{
 
     public Inventory getPage(int i) {
         return menus.get(i);
+    }
+
+    public Quest findClickedQuest(Text quest) {
+        for(Quest quest1: owner.getQuests()){
+            if(quest1.getTitle().equals(quest))
+                return quest1;
+        }
+        return null;
     }
 }

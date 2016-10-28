@@ -34,7 +34,7 @@ public class TestQuestLocation {
                 .condition(new ReachLocation(false, use2, 1.5))
                 .buildCheckpoint();
 
-        Quest quest = questBuilder.name("Test").description("This is a test quest").level(1).setID("test").checkpoints().itemType(ItemTypes.WRITTEN_BOOK).reward(new TestReward()).build();
+        Quest quest = questBuilder.name("Test").description("This is a test quest").level(1).setID("test").checkpoints().itemType(ItemTypes.PAPER).reward(new TestReward()).build();
         questBuilder.reset();
         return quest;
     }

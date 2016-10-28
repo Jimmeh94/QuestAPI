@@ -5,6 +5,8 @@ import com.github.questapi.core.menus.QuestMenu;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import com.github.questapi.core.quests.Quest;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.event.cause.NamedCause;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,10 @@ public class PlayerInfo {
         uuid = player.getUniqueId();
         //TODO populate quests
         //questMenu = new QuestMenu(this);
+    }
+
+    public void displayQuestMenu(){
+        getPlayer().openInventory(questMenu.getPage(0), Cause.builder().named(NamedCause.of("Server Action", this)).build());
     }
 
     /*

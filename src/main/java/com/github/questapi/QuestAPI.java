@@ -1,7 +1,9 @@
 package com.github.questapi;
 
+import com.github.questapi.commands.MenuCommands;
 import com.github.questapi.core.quests.builders.QuestBuilder;
 import com.github.questapi.events.InitializationEvents;
+import com.github.questapi.events.InventoryClick;
 import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
@@ -47,11 +49,11 @@ public class QuestAPI {
     private void registerRunnables() {
         Task.Builder taskBuilder = Sponge.getScheduler().createTaskBuilder();
 
-        taskBuilder.execute(new CoreTimer()).intervalTicks(10L).submit(this);
+        //taskBuilder.execute(new CoreTimer()).intervalTicks(10L).submit(this);
     }
 
     private void registerCommands() {
-
+        new MenuCommands();
     }
 
     private void registerListeners() {
@@ -59,6 +61,7 @@ public class QuestAPI {
 
         eventManager.registerListeners(this, new PlayerConnection());
         eventManager.registerListeners(this, new InitializationEvents());
+        eventManager.registerListeners(this, new InventoryClick());
     }
 
     @Listener
